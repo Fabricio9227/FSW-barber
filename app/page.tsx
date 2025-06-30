@@ -6,7 +6,7 @@ const Home = () => {
       {/* Header*/}
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">
+        <h2 className="font-nunito text-xl">
           Olá, <strong>Fabrício!</strong>
         </h2>
         <p>Segunda-feira, 30 de Junho.</p>
