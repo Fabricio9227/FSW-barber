@@ -6,8 +6,11 @@ import { Badge } from "./_components/ui/badge"
 import { Button } from "./_components/ui/button"
 import { Card, CardContent } from "./_components/ui/card"
 import { Input } from "./_components/ui/input"
+import { db } from "./_lib/prisma"
 
-const Home = () => {
+const Home = async () => {
+  const barbershops = await db.barbershop.findMany({})
+  console.log({ barbershops })
   return (
     <div>
       {/* Header*/}
