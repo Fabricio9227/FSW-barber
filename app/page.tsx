@@ -1,5 +1,6 @@
 import { SearchIcon } from "lucide-react"
 import Image from "next/image"
+import BarbershopItem from "./_components/barbershop-item"
 import Header from "./_components/header"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { Badge } from "./_components/ui/badge"
@@ -68,6 +69,15 @@ const Home = async () => {
             </div>
           </CardContent>
         </Card>
+
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Recomendados
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </div>
   )
