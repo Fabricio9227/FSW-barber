@@ -6,8 +6,12 @@
 .pnp.js
 .yarn/install-state.gz
 
+.env
+
 # testing
 /coverage
+
+# DATABASE_URL="postgresql://neondb_owner:npg_VWgQs2ubxE4A@ep-dark-violet-a8iowhn5-pooler.eastus2.azure.neon.tech/neondb"
 
 # next.js
 /.next/
@@ -27,6 +31,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+/.env*
 
 # vercel
 .vercel
