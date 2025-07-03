@@ -1,12 +1,12 @@
 import { SearchIcon } from "lucide-react"
 import Image from "next/image"
 import BarbershopItem from "./_components/barbershop-item"
+import BookingItem from "./_components/booking-item"
 import Header from "./_components/header"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
-import { Badge } from "./_components/ui/badge"
 import { Button } from "./_components/ui/button"
 import { Card, CardContent } from "./_components/ui/card"
 import { Input } from "./_components/ui/input"
+import { quickSearchOptions } from "./_constants/search"
 import { db } from "./_lib/prisma"
 
 const Home = async () => {
@@ -37,40 +37,17 @@ const Home = async () => {
 
         {/* Busca rápida */}
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
-            Cabelo
-          </Button>
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
-            Barba
-          </Button>
-          <Button className="gap-2" variant="secondary">
-            <Image
-              alt="Acabamento"
-              src="/acabamento.svg"
-              width={16}
-              height={16}
-            />
-            Acabamento
-          </Button>
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
-            Cabelo
-          </Button>
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
-            Barba
-          </Button>
-          <Button className="gap-2" variant="secondary">
-            <Image
-              alt="Acabamento"
-              src="/acabamento.svg"
-              width={16}
-              height={16}
-            />
-            Acabamento
-          </Button>
+          {quickSearchOptions.map((option) => (
+            <Button key={option.title} className="gap-2" variant="secondary">
+              <Image
+                alt={option.title}
+                src={option.imageURL}
+                width={16}
+                height={16}
+              />
+              {option.title}
+            </Button>
+          ))}
         </div>
 
         {/* Banner */}
@@ -84,42 +61,20 @@ const Home = async () => {
         </div>
 
         {/* Agendamento */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* DIV DA ESQUERDA*/}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage
-                    alt="Barbearia"
-                    src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"
-                  />
-                </Avatar>
-                <p className="text-sm">Vintage Barber</p>
-              </div>
-            </div>
-            {/* DIV DA DIREITA*/}
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
-              <p className="text-sm">Junho</p>
-              <p className="text-2xl font-bold">30</p>
-              <p className="text-sm">09:45</p>
-            </div>
-          </CardContent>
-        </Card>
 
+        <BookingItem />
+
+        {/* Lista de recomendados */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
+
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
+        {/* Lista de populares */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Populares
         </h2>
