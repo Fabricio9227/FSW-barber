@@ -12,7 +12,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
     <Card>
       <CardContent className="flex items-center gap-3 p-3">
         {/* Imagem */}
-        <div className="relative h-[110px] max-h-[110px] w-[110px] max-w-[110px]">
+        <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px]">
           <Image
             alt={service.name}
             src={service.imageUrl}
@@ -25,20 +25,20 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
         <div className="space-y-2">
           <h3 className="text-sm font-semibold">{service.name}</h3>
           <p className="text-sm text-gray-400">{service.description}</p>
-        </div>
 
-        {/* Preço e botão */}
-        <div className="flex items-center">
-          <p>
-            {Intl.NumberFormat("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            }).format(Number(service.price))}
-          </p>
+          {/* Preço e botão */}
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-bold text-primary">
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(Number(service.price))}
+            </p>
 
-          <Button variant="secondary" size="sm" className="">
-            Reservar
-          </Button>
+            <Button variant="secondary" size="sm" className="">
+              Reservar
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

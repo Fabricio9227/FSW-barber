@@ -1,4 +1,6 @@
 import { Nunito } from "next/font/google"
+import { Toaster } from "sonner"
+import Footer from "./_components/footer"
 import "./globals.css"
 
 export const metadata = {
@@ -18,6 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${nunito.variable}`}>
       <body>{children}</body>
+
+      <Toaster />
+
+      <Footer />
     </html>
   )
 }
