@@ -19,11 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`dark ${nunito.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
 
-      <Toaster />
+        <Toaster />
 
-      <Footer />
+        <Footer />
+      </body>
     </html>
   )
 }
