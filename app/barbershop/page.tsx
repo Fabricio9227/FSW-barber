@@ -18,6 +18,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
       },
     },
   })
+
   return (
     <div>
       <Header />
@@ -26,8 +27,9 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
       </div>
       <div className="px-5">
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Resultados para {searchParams?.search}
+          Resultados para &quot;{searchParams.search}&quot;
         </h2>
+
         <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />

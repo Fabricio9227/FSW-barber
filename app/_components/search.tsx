@@ -1,7 +1,9 @@
+"use client"
+
 import { SearchIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
@@ -23,7 +25,7 @@ const Search = () => {
   const router = useRouter()
 
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    router.push(`/barbershops?search=${data}`)
+    router.push(`/barbershop?search=${data.search}`)
   }
 
   return (
