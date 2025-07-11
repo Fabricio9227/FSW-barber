@@ -68,7 +68,7 @@ const Home = async () => {
         <BookingItem />
 
         {/* Lista de recomendados */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
           Recomendados
         </h2>
 
@@ -78,7 +78,7 @@ const Home = async () => {
           ))}
         </div>
         {/* Lista de populares */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
           Populares
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">

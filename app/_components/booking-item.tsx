@@ -1,4 +1,3 @@
-import { Badge } from "lucide-react"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { Card, CardContent } from "./ui/card"
 
@@ -6,14 +5,17 @@ import { Card, CardContent } from "./ui/card"
 export const BookingItem = () => {
   return (
     <>
-      <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+      <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
         Agendamentos
       </h2>
       <Card>
         <CardContent className="flex justify-between p-0">
           {/* DIV DA ESQUERDA*/}
-          <div className="flex flex-col gap-2 py-5 pl-5">
-            <Badge className="w-fit">Confirmado</Badge>
+          <div className="flex flex-col items-start gap-2 py-3 pl-3 pt-3">
+            <span className="rounded-full bg-[#221c3d] px-3 py-1 text-sm font-semibold text-[#8162FF]">
+              Confirmado
+            </span>
+
             <h3 className="font-semibold">Corte de Cabelo</h3>
             <div className="flex items-center gap-2">
               <Avatar className="h-6 w-6">
@@ -28,7 +30,7 @@ export const BookingItem = () => {
           {/* DIV DA DIREITA*/}
           <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
             <p className="text-sm">Junho</p>
-            <p className="text-2xl font-bold">30</p>
+            <p className="text-2xl font-light">30</p>
             <p className="text-sm">09:45</p>
           </div>
         </CardContent>
