@@ -16,7 +16,10 @@ import {
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useState } from "react"
-import { format } from "date-fns"
+import { format, set } from "date-fns"
+
+import { createBooking } from "../_actions/create-booking"
+import { toast } from "sonner"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -59,6 +62,33 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time)
+  }
+
+  const handleCreateBooking = async () => {
+    // 1. Não exibir horários que já foram agendados
+    // 2. Salvar o agendamento para o usuário logado
+    try {
+      // Se não tiver data ou hora selecionada, sai da função
+      if (!selectedDay || !selectedTime) return
+      const hour = Number(selectedTime?.split(":")[0])
+      // ["09":"00"]
+      const minute = Number(selectedTime?.split(":")[1])
+      // newDate é a data selecionada com a hora e minuto
+      const newDate = set(selectedDay, {
+        minutes: minute,
+        hours: hour,
+      })
+
+      await createBooking({
+        serviceId: service.id,
+        userId: "cmcw21k210000rbmskxznh0f8",
+        date: newDate,
+      })
+      toast.success("Reserva criada com sucesso!")
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao criar reserva!")
+    }
   }
 
   return (
@@ -183,7 +213,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                 )}
                 <SheetFooter className="px-5">
                   <SheetClose asChild>
-                    <Button type="submit">Confirmar</Button>
+                    <Button type="submit" onClick={handleCreateBooking}>
+                      Confirmar
+                    </Button>
                   </SheetClose>
                 </SheetFooter>
               </SheetContent>
@@ -194,5 +226,4 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     </Card>
   )
 }
-
 export default ServiceItem
