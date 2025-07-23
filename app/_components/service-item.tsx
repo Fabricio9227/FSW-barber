@@ -54,6 +54,7 @@ const TIME_LIST = [
 ]
 
 const getTimeList = (bookings: Booking[]) => {
+  // TODO: Não exibir horrários no passado
   return TIME_LIST.filter((time) => {
     const hour = Number(time.split(":")[0])
     const minute = Number(time.split(":")[1])
@@ -125,7 +126,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
       await createBooking({
         serviceId: service.id,
-        userId: (data?.user as any).id,
         date: newDate,
       })
       toast.success("Reserva criada com sucesso!")
