@@ -1,8 +1,21 @@
+import { Prisma } from "@prisma/client"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { Card, CardContent } from "./ui/card"
 
+interface BookingItemProps {
+  booking: Prisma.BookingGetPayload<{
+    include: {
+      service: {
+        include: {
+          barbershop: true
+        }
+      }
+    }
+  }>
+}
+
 // TODO: Receber agendamento como props
-export const BookingItem = () => {
+export const BookingItem = ({ booking }: BookingItemProps) => {
   return (
     <>
       <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
@@ -16,7 +29,7 @@ export const BookingItem = () => {
               Confirmado
             </span>
 
-            <h3 className="font-semibold">Corte de Cabelo</h3>
+            <h3 className="font-semibold">{booking.service.name}</h3>
             <div className="flex items-center gap-2">
               <Avatar className="h-6 w-6">
                 <AvatarImage
@@ -24,7 +37,7 @@ export const BookingItem = () => {
                   src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"
                 />
               </Avatar>
-              <p className="text-sm">Vintage Barber</p>
+              <p className="text-sm">{booking.service.barbershop.name}</p>
             </div>
           </div>
           {/* DIV DA DIREITA*/}
