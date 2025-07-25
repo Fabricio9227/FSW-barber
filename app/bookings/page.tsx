@@ -12,9 +12,12 @@ const Bookings = async () => {
     return notFound()
   }
 
-  const bookings = await db.booking.findMany({
+  const confirmedBookings = await db.booking.findMany({
     where: {
       userId: (session.user as any).id,
+      date: {
+        gte: new Date(),
+      },
     },
     include: {
       service: {
@@ -23,13 +26,45 @@ const Bookings = async () => {
         },
       },
     },
+    orderBy: {
+      date: "asc",
+    },
   })
+
+  const finishedBookings = await db.booking.findMany({
+    where: {
+      userId: (session.user as any).id,
+      date: {
+        lt: new Date(),
+      },
+    },
+    include: {
+      service: {
+        include: {
+          barbershop: true,
+        },
+      },
+    },
+    orderBy: {
+      date: "asc",
+    },
+  })
+
   return (
     <>
       <Header />
-      <div className="p-5">
-        <h1 className="text-xl font-bold">Agendamentos</h1>
-        {bookings.map((booking) => (
+      <div className="space-y-3 p-5">
+        <h2 className="text-xl font-bold">Agendamentos</h2>
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
+          Confirmados
+        </h2>
+        {confirmedBookings.map((booking) => (
+          <BookingItem key={booking.id} booking={booking} />
+        ))}
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
+          Finalizados
+        </h2>
+        {finishedBookings.map((booking) => (
           <BookingItem key={booking.id} booking={booking} />
         ))}
       </div>
