@@ -6,13 +6,28 @@ import { ptBR } from "date-fns/locale"
 import { Badge } from "./ui/badge"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet"
 import Image from "next/image"
 import PhoneItem from "./phone-item"
+import { Button } from "./ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
+import { deleteBooking } from "../_actions/delete-booking"
+import { toast } from "sonner"
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -32,6 +47,15 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
     service: { barbershop },
   } = booking
   const isConfirmed = isFuture(booking.date)
+  const handleCancelBooking = async () => {
+    try {
+      await deleteBooking(booking.id)
+      toast.success("Reserva cancelada com sucesso!")
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao cancelar reserva. Tente novamente.")
+    }
+  }
   return (
     <Sheet>
       <SheetTrigger className="w-full">
@@ -146,6 +170,46 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
             ))}
           </div>
         </div>
+        <SheetFooter className="mt-6">
+          <div className="flex items-center gap-3">
+            <SheetClose asChild>
+              <Button variant="outline" className="w-full">
+                Voltar
+              </Button>
+            </SheetClose>
+            {isConfirmed && (
+              <Dialog>
+                <DialogTrigger>
+                  <Button variant="destructive" className="w-full">
+                    Cancelar reserva
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="w-[90%] rounded-xl">
+                  <DialogHeader>
+                    <DialogTitle>Você deseja cancelar sua reserva?</DialogTitle>
+                    <DialogDescription>
+                      Tem certeza que deseja cancelar esse agendamento?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="flex flex-row gap-3">
+                    <DialogClose asChild>
+                      <Button variant="secondary" className="w-full">
+                        Voltar
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        className="w-full"
+                        onClick={handleCancelBooking}
+                      >
+                        Confirmar
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
+          </div>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
