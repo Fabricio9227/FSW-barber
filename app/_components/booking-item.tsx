@@ -1,3 +1,5 @@
+"use client"
+
 import { Prisma } from "@prisma/client"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { Card, CardContent } from "./ui/card"
@@ -28,6 +30,7 @@ import {
 } from "./ui/dialog"
 import { deleteBooking } from "../_actions/delete-booking"
 import { toast } from "sonner"
+import { useState } from "react"
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -43,6 +46,7 @@ interface BookingItemProps {
 
 // TODO: Receber agendamento como props
 export const BookingItem = ({ booking }: BookingItemProps) => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
   const {
     service: { barbershop },
   } = booking
@@ -51,13 +55,17 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
     try {
       await deleteBooking(booking.id)
       toast.success("Reserva cancelada com sucesso!")
+      setIsSheetOpen(false)
     } catch (error) {
       console.error(error)
       toast.error("Erro ao cancelar reserva. Tente novamente.")
     }
   }
+  const handleSheetOpenChange = (isOpen: boolean) => {
+    setIsSheetOpen(isOpen)
+  }
   return (
-    <Sheet>
+    <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
       <SheetTrigger className="w-full">
         <Card className="min-w-[95%]">
           <CardContent className="flex justify-between p-0">
@@ -96,7 +104,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
           </CardContent>
         </Card>
       </SheetTrigger>
-      <SheetContent className="w-[90%]">
+      <SheetContent className="w-[85%]">
         <SheetHeader className="border-b-solid">
           <SheetTitle className="text-left">Informações da Reserva</SheetTitle>
         </SheetHeader>
@@ -179,7 +187,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
             </SheetClose>
             {isConfirmed && (
               <Dialog>
-                <DialogTrigger>
+                <DialogTrigger className="w-full">
                   <Button variant="destructive" className="w-full">
                     Cancelar reserva
                   </Button>
@@ -196,13 +204,15 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
                       <Button variant="secondary" className="w-full">
                         Voltar
                       </Button>
-                      <Button
-                        variant="destructive"
-                        className="w-full"
-                        onClick={handleCancelBooking}
-                      >
-                        Confirmar
-                      </Button>
+                      <DialogClose className="w-full">
+                        <Button
+                          variant="destructive"
+                          className="w-full"
+                          onClick={handleCancelBooking}
+                        >
+                          Confirmar
+                        </Button>
+                      </DialogClose>
                     </DialogClose>
                   </DialogFooter>
                 </DialogContent>

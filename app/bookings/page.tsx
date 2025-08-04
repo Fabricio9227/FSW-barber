@@ -55,15 +55,19 @@ const Bookings = async () => {
       <Header />
       <div className="space-y-3 p-5">
         <h2 className="text-xl font-bold">Agendamentos</h2>
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
-          Confirmados
-        </h2>
+        {confirmedBookings.length > 0 && (
+          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
+            Confirmados
+          </h2>
+        )}
         {confirmedBookings.map((booking) => (
           <BookingItem key={booking.id} booking={booking} />
         ))}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
-          Finalizados
-        </h2>
+        {finishedBookings.length > 0 && (
+          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
+            Finalizados
+          </h2>
+        )}
         {finishedBookings.map((booking) => (
           <BookingItem key={booking.id} booking={booking} />
         ))}
