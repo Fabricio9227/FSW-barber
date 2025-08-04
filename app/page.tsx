@@ -49,15 +49,13 @@ const Home = async () => {
         {/* Texto */}
         <h2 className="font-nunito text-xl font-extralight">
           Olá,{" "}
-          <strong className="capitalize">
-            {session?.user ? session.user.name : "bem vindo!"}
-          </strong>
+          <strong>{session?.user ? session.user.name : "bem vindo!"}</strong>
         </h2>
         <p>
           <span className="capitalize">
             {format(new Date(), "EEEE, dd", { locale: ptBR })}
           </span>
-          <span>&nbsp; de &nbsp;</span>
+          <span>&nbsp;de&nbsp;</span>
           <span className="capitalize">
             {format(new Date(), "MMMM", { locale: ptBR })}
           </span>
@@ -102,9 +100,11 @@ const Home = async () => {
 
         {/* Agendamento */}
         <div>
-          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
-            Agendamentos
-          </h2>
+          {confirmedBookings.length > 0 && (
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-[#838896]">
+              Agendamentos
+            </h2>
+          )}
         </div>
 
         <div className="flex gap-3 overflow-auto [&::-webkit-scrollbar]:hidden">
