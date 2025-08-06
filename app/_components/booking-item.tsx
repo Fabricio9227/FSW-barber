@@ -185,6 +185,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
                 Voltar
               </Button>
             </SheetClose>
+
             {isConfirmed && (
               <Dialog>
                 <DialogTrigger className="w-full">
@@ -192,6 +193,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
                     Cancelar reserva
                   </Button>
                 </DialogTrigger>
+
                 <DialogContent className="w-[90%] rounded-xl">
                   <DialogHeader>
                     <DialogTitle>Você deseja cancelar sua reserva?</DialogTitle>
@@ -199,20 +201,22 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
                       Tem certeza que deseja cancelar esse agendamento?
                     </DialogDescription>
                   </DialogHeader>
+
                   <DialogFooter className="flex flex-row gap-3">
                     <DialogClose asChild>
                       <Button variant="secondary" className="w-full">
                         Voltar
                       </Button>
-                      <DialogClose className="w-full">
-                        <Button
-                          variant="destructive"
-                          className="w-full"
-                          onClick={handleCancelBooking}
-                        >
-                          Confirmar
-                        </Button>
-                      </DialogClose>
+                    </DialogClose>
+
+                    <DialogClose asChild>
+                      <Button
+                        variant="destructive"
+                        className="w-full"
+                        onClick={handleCancelBooking}
+                      >
+                        Confirmar
+                      </Button>
                     </DialogClose>
                   </DialogFooter>
                 </DialogContent>
