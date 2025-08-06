@@ -17,9 +17,10 @@ export const authOptions: AuthOptions = {
       session.user = {
         ...session.user,
         id: user.id,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
       return session
     },
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 }
