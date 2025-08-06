@@ -108,7 +108,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
         <SheetHeader className="border-b-solid">
           <SheetTitle className="text-left">Informações da Reserva</SheetTitle>
         </SheetHeader>
-        <div className="relative mt-6 h-[180px] w-full items-end">
+        <div className="relative mt-6 flex h-[180px] w-full items-end">
           <Image
             src="/map.png"
             fill
@@ -121,7 +121,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
                 <AvatarImage src={barbershop.imageUrl} />
               </Avatar>
               <div>
-                <h3 className="font-bold">{barbershop.name}</h3>
+                <h3>{barbershop.name}</h3>
                 <p className="text-xs">{barbershop.address}</p>
               </div>
             </CardContent>
